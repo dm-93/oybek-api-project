@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { LoginModel } from '../shared/models/login.model';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { AuthServerResponse } from '../shared/models/auth-server-response.models';
 
@@ -47,6 +47,7 @@ export class LoginService {
     if (message === 'Invalid credentials') {
       this.error$.next('Invalid credentials');
     }
+    return throwError(error);
   }
 
   private setToken(serverResponse: AuthServerResponse | null) {
