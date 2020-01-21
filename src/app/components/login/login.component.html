@@ -1,11 +1,11 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+
 
 <div class="sidenav">
   <div class="login-main-text">
-    <h2>Oybek Api<br> Login Page</h2>
+    <h2>Oybek Api<br>Sign In</h2>
     <p>Login or register from here to access.</p>
   </div>
 </div>
@@ -27,11 +27,11 @@
         </div>
         <div *ngIf="form.get('password').invalid && form.get('password').touched" class="validation">
           <small *ngIf="form.get('password').errors.required">Password requared</small>
-          <small *ngIf="form.get('password').errors.minlength">Password should contein minimum
+          <small *ngIf="form.get('password').errors.minlength">Password should contain minimum
             {{form.get('password').errors.minlength.requiredLength}} symbols.</small>
         </div>
         <button type="submit" class="btn btn-black">Login</button>
-        <button type="submit" class="btn btn-secondary">Register</button>
+        <button type="button" class="btn btn-secondary" [routerLink] = "['/registration']">Register</button>
       </form>
     </div>
   </div>

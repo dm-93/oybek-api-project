@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { TokenInterceptor } from './services/token.interceptor';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -21,7 +22,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     AppComponent,
     LoginComponent,
     MainLayoutComponent,
-    HomePageComponent
+    HomePageComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

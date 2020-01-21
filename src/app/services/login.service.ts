@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { LoginModel } from '../shared/models/login.model';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { AuthServerResponse } from '../shared/models/auth-server-response.models';
 
@@ -9,9 +9,9 @@ import { AuthServerResponse } from '../shared/models/auth-server-response.models
   providedIn: 'root'
 })
 export class LoginService {
-  public error$: Subject<string> = new Subject<string>();
 
-  constructor(private http: HttpClient) { }
+  public error$: Subject<string> = new Subject<string>();
+  constructor(private http: HttpClient) {}
 
   get token() {
     const expDate = new Date(+localStorage.getItem('expiresIn'));
@@ -22,34 +22,35 @@ export class LoginService {
     return localStorage.getItem('accessToken');
   }
 
-  login(loginModel: LoginModel): Observable<any> {
+  login(loginModel: LoginModel): Observable < any > {
     const payload = `username=${encodeURIComponent(loginModel.Username)}&password=${encodeURIComponent(loginModel.Password)}&grant_type=password`;
-    return this.http.post<any>('http://demo.oybek.com/oauth/token', payload, {
-    headers: {
+    return this.http.post < any > ('http://demo.oybek.com/oauth/token', payload, {
+      headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
-    }
-   }).pipe(
-      tap(response => this.setToken(response)),
-      catchError(this.handleError.bind(this))  
-   );
+      }
+    }).pipe(
+      tap(this.setToken),
+      catchError(this.handleError.bind(this)) 
+    );
   }
 
   logout() {
-    this.setToken(null);
+    localStorage.clear();
   }
 
   isAuthenticated(): boolean {
-    return true
+    return !!localStorage.getItem('accessToken');
   }
 
   handleError(error: HttpErrorResponse) {
-    const message = error.error.error_description;
+    const {message} = error.error.error_description;
     if (message === 'Invalid credentials') {
       this.error$.next('Invalid credentials');
     }
+    return throwError(error);
   }
 
-  setToken(serverResponse: AuthServerResponse | null) {
+  private setToken(serverResponse: AuthServerResponse | null) {
     //console.log('setToken', serverResponse);
     const expDate = new Date(new Date().getTime() + +serverResponse.expires_in * 1000);
     if (serverResponse) {
