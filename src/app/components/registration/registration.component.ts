@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserModel } from 'src/app/shared/models/user.model';
 import { RegistrationService } from 'src/app/services/registration.service';
 import { HttpErrorResponse } from '@angular/common/http/http';
+import { PassMatchValidator } from 'src/app/shared/validators/pass-match.validator';
 
 @Component({
   selector: 'app-registration',
@@ -14,24 +15,22 @@ export class RegistrationComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private router: Router, private registration: RegistrationService) { }
+  constructor(
+    private router: Router, 
+    private registration: RegistrationService,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.form = new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [
-        Validators.required, Validators.email
-      ]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6)
-      ]),
-      passwordConfirmation: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ])
+    this.form = this.fb.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required,Validators.minLength(6)]],
+      passwordConfirmation: ['', [Validators.required,Validators.minLength(6),]]
+    }, {
+      validator: PassMatchValidator.checkPasswords('password', 'passwordConfirmation')
     });
+    console.log(this.form);
   }
 
   signUp() {
