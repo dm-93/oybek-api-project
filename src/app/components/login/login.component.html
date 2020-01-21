@@ -30,7 +30,7 @@
           <small *ngIf="form.get('password').errors.minlength">Password should contain minimum
             {{form.get('password').errors.minlength.requiredLength}} symbols.</small>
         </div>
-        <button type="submit" class="btn btn-black">Login</button>
+        <button type="submit" class="btn btn-black" [disabled]="form.invalid" >Login</button>
         <button type="button" class="btn btn-secondary" [routerLink] = "['/registration']">Register</button>
       </form>
     </div>

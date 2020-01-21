@@ -50,7 +50,7 @@
           <small *ngIf="!form.get('passwordConfirmation').errors.checkPasswords">Password is not match</small>
         </div>
         <button type="button" class="btn btn-secondary" [routerLink] = "['/login']">Login</button>
-        <button type="submit" class="btn btn-black">Sign up</button>
+        <button type="submit" class="btn btn-black" [disabled]="form.invalid" >Sign up</button>
       </form>
     </div>
   </div>

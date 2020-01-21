@@ -4,6 +4,7 @@ import { LoginModel } from '../shared/models/login.model';
 import { Observable, Subject, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { AuthServerResponse } from '../shared/models/auth-server-response.models';
+import { CurrentUser } from '../shared/models/current-user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class LoginService {
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('accessToken');
+    return !!this.token//localStorage.getItem('accessToken');
   }
 
   handleError(error: HttpErrorResponse) {
@@ -61,4 +62,9 @@ export class LoginService {
       localStorage.clear();
     }
   }
+
+  getUserDetails():Observable <CurrentUser> {
+    const basePath = 'http://demo.oybek.com/api/User/Details';
+    return this.http.get <CurrentUser> (basePath);
+  } 
 }

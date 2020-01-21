@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersListModel } from 'src/app/shared/models/users-list.model';
+import { UserModel } from 'src/app/shared/models/user.model';
+import { UserManagementService } from 'src/app/services/user-management.service';
 
 @Component({
   selector: 'app-home-page',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor() { }
+  usersList: UsersListModel<UserModel>;
+
+  constructor(private userManagServ: UserManagementService) { }
 
   ngOnInit() {
+    this.userManagServ.getUsers(1).subscribe(response => {
+      console.log(response);
+    });
   }
 
 }
