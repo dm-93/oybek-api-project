@@ -16,7 +16,8 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {
     this.userManagServ.getUsers(1).subscribe(response => {
-      console.log(response);
+      this.usersList = response;
+      console.log('after intit',this.usersList);
     });
   }
 
