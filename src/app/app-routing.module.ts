@@ -9,12 +9,12 @@ import { RegistrationComponent } from './components/registration/registration.co
 const routes: Routes = [
     {      
       path: '', component: MainLayoutComponent, children: [
-      { path: '', redirectTo: '/', pathMatch: 'full' },
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: '', component: HomePageComponent }
     ]   
   },
   { path: 'login', component: LoginComponent },
-  { path: 'registration', component: RegistrationComponent }
+  { path: 'registration', component: RegistrationComponent },
 ];
 
 @NgModule({

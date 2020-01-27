@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { LoginModel } from '../shared/models/login.model';
 import { Observable, Subject, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, concatMap } from 'rxjs/operators';
 import { AuthServerResponse } from '../shared/models/auth-server-response.models';
 import { CurrentUser } from '../shared/models/current-user.model';
 
@@ -31,7 +31,7 @@ export class LoginService {
       }
     }).pipe(
       tap(this.setToken),
-      catchError(this.handleError.bind(this)) 
+      catchError(this.handleError.bind(this))
     );
   }
 
@@ -40,7 +40,11 @@ export class LoginService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.token//localStorage.getItem('accessToken');
+    return !!this.token
+  }
+
+  isAdmin(): boolean {
+    return localStorage.getItem('role') === 'Admin' ? true : false
   }
 
   handleError(error: HttpErrorResponse) {
@@ -52,7 +56,6 @@ export class LoginService {
   }
 
   private setToken(serverResponse: AuthServerResponse | null) {
-    //console.log('setToken', serverResponse);
     const expDate = new Date(new Date().getTime() + +serverResponse.expires_in * 1000);
     if (serverResponse) {
       localStorage.setItem('accessToken', serverResponse.access_token);
@@ -64,7 +67,11 @@ export class LoginService {
   }
 
   getUserDetails():Observable <CurrentUser> {
-    const basePath = 'http://demo.oybek.com/api/User/Details';
-    return this.http.get <CurrentUser> (basePath);
+    const url = 'http://demo.oybek.com/api/User/Details';
+    return this.http.get <CurrentUser> (url).pipe(
+      tap(userInfoResponse => {
+        localStorage.setItem('role', userInfoResponse.Data.Role)
+      })
+    );
   } 
 }

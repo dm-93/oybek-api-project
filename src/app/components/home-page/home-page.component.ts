@@ -15,10 +15,10 @@ export class HomePageComponent implements OnInit {
   constructor(private userManagServ: UserManagementService) { }
 
   ngOnInit() {
-    this.userManagServ.getUsers(1).subscribe(response => {
-      this.usersList = response;
-      console.log('after intit',this.usersList);
-    });
+    // this.userManagServ.getUsers(1).subscribe(response => {
+    //   this.usersList = response;
+    //   console.log('after intit',this.usersList);
+    // });
   }
 
 }

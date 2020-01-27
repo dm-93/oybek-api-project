@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
       response => {
         console.log(response);
         this.form.reset(),
-        this.router.navigate(['/']);
+        this.router.navigate(['']);
       }
     )
   }
