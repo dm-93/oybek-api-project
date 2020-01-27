@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/services/login.service';
+import { LoginService } from 'src/app/shared/services/login.service';
 
 @Component({
   selector: 'app-main-layout',

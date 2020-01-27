@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersListModel } from 'src/app/shared/models/users-list.model';
 import { UserModel } from 'src/app/shared/models/user.model';
-import { UserManagementService } from 'src/app/services/user-management.service';
+import { UserManagementService } from 'src/app/shared/services/user-management.service';
 
 @Component({
   selector: 'app-home-page',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserModel } from 'src/app/shared/models/user.model';
-import { RegistrationService } from 'src/app/services/registration.service';
+import { RegistrationService } from 'src/app/shared/services/registration.service';
 import { HttpErrorResponse } from '@angular/common/http/http';
 import { PassMatchValidator } from 'src/app/shared/validators/pass-match.validator';
 

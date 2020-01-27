@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
-import { LoginModel } from '../shared/models/login.model';
+import { LoginModel } from '../models/login.model';
 import { Observable, Subject, throwError } from 'rxjs';
 import { tap, catchError, concatMap } from 'rxjs/operators';
-import { AuthServerResponse } from '../shared/models/auth-server-response.models';
-import { CurrentUser } from '../shared/models/current-user.model';
+import { AuthServerResponse } from '../models/auth-server-response.models';
+import { CurrentUser } from '../models/current-user.model';
 
 @Injectable({
   providedIn: 'root'

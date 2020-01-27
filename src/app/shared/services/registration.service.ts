@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
-import { UserRegistrationResponse } from '../shared/models/user-registration-response.model';
-import { UserModel } from '../shared/models/user.model';
+import { UserRegistrationResponse } from '../models/user-registration-response.model';
+import { UserModel } from '../models/user.model';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({

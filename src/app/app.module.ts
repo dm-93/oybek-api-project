@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
-import { TokenInterceptor } from './services/token.interceptor';
+import { TokenInterceptor } from './shared/services/token.interceptor';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 
