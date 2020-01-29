@@ -30,8 +30,17 @@ export class LoginService {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     }).pipe(
-      tap(this.setToken),
-      catchError(this.handleError.bind(this))
+      concatMap((response) => {
+        this.setToken(response);
+        let url = 'http://demo.oybek.com/api/User/Details';
+        return this.http.get <CurrentUser>(url).pipe(
+          tap(userInfoResponse => {
+            localStorage.setItem('role', userInfoResponse.Data.Role)
+          })
+        )}
+      ),
+      // tap(this.setToken),
+      catchError(this.handleError.bind(this))  
     );
   }
 
