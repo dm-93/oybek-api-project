@@ -10,6 +10,7 @@ import { MainLayoutComponent } from './components/main-layout/main-layout.compon
 import { TokenInterceptor } from './shared/services/token.interceptor';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -23,7 +24,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     LoginComponent,
     MainLayoutComponent,
     HomePageComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    UsersListComponent
   ],
   imports: [
     BrowserModule,
