@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { LoginModel } from '../models/login.model';
-import { Observable, Subject, throwError } from 'rxjs';
+import { Observable, Subject, throwError, BehaviorSubject } from 'rxjs';
 import { tap, catchError, concatMap } from 'rxjs/operators';
 import { AuthServerResponse } from '../models/auth-server-response.models';
 import { CurrentUser } from '../models/current-user.model';
@@ -12,6 +12,8 @@ import { CurrentUser } from '../models/current-user.model';
 export class LoginService {
 
   public error$: Subject<string> = new Subject<string>();
+  public currentUser$: Subject<CurrentUser> = new Subject<CurrentUser>()
+  
   constructor(private http: HttpClient) {}
 
   get token() {
@@ -33,14 +35,16 @@ export class LoginService {
       concatMap((response) => {
         this.setToken(response);
         let url = 'http://demo.oybek.com/api/User/Details';
-        return this.http.get <CurrentUser>(url).pipe(
+        return this.http.get < CurrentUser > (url).pipe(
           tap(userInfoResponse => {
-            localStorage.setItem('role', userInfoResponse.Data.Role)
+            if (!!userInfoResponse) {
+              this.currentUser$.next(userInfoResponse);
+              localStorage.setItem('role', userInfoResponse.Data.Role)
+            }
           })
-        )}
-      ),
-      // tap(this.setToken),
-      catchError(this.handleError.bind(this))  
+        )
+      }),
+      catchError(this.handleError.bind(this))
     );
   }
 
@@ -74,13 +78,4 @@ export class LoginService {
       localStorage.clear();
     }
   }
-
-  getUserDetails():Observable <CurrentUser> {
-    const url = 'http://demo.oybek.com/api/User/Details';
-    return this.http.get <CurrentUser> (url).pipe(
-      tap(userInfoResponse => {
-        localStorage.setItem('role', userInfoResponse.Data.Role)
-      })
-    );
-  } 
 }
