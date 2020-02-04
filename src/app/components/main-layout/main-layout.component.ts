@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LoginService } from 'src/app/shared/services/login.service';
 import { CurrentUser } from 'src/app/shared/models/current-user.model';
 import { map } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.css']
 })
-export class MainLayoutComponent implements OnInit {
+export class MainLayoutComponent implements OnInit, OnDestroy {
 
   isAdmin: boolean;
   constructor(
@@ -26,4 +26,7 @@ export class MainLayoutComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  ngOnDestroy() {
+    this.loginService.logout();
+  }
 }

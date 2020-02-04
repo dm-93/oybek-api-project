@@ -11,6 +11,7 @@ import { TokenInterceptor } from './shared/services/token.interceptor';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
+import { JwPaginationComponent } from 'jw-angular-pagination';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -25,14 +26,14 @@ const INTERCEPTOR_PROVIDER: Provider = {
     MainLayoutComponent,
     HomePageComponent,
     RegistrationComponent,
-    UsersListComponent
+    UsersListComponent,
+    JwPaginationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
-    
+    HttpClientModule    
   ],
   providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]

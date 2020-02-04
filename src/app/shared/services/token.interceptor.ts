@@ -21,7 +21,6 @@ export class TokenInterceptor implements HttpInterceptor {
         console.log('interseptor', req);
         return next.handle(req);
     }
-
 }
 
 //jumaniyozov@oybek.com

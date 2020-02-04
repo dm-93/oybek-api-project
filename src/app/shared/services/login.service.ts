@@ -17,12 +17,12 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   get token() {
-    const expDate = new Date(+localStorage.getItem('expiresIn'));
+    const expDate = new Date(+sessionStorage.getItem('expiresIn'));
     if (new Date() > expDate) {
       this.logout();
       return null;
     }
-    return localStorage.getItem('accessToken');
+    return sessionStorage.getItem('accessToken');
   }
 
   login(loginModel: LoginModel): Observable < any > {
@@ -39,7 +39,7 @@ export class LoginService {
           tap(userInfoResponse => {
             if (!!userInfoResponse) {
               this.currentUser$.next(userInfoResponse);
-              localStorage.setItem('role', userInfoResponse.Data.Role)
+              sessionStorage.setItem('role', userInfoResponse.Data.Role)
             }
           })
         )
@@ -49,7 +49,7 @@ export class LoginService {
   }
 
   logout() {
-    localStorage.clear();
+    sessionStorage.clear();
   }
 
   isAuthenticated(): boolean {
@@ -57,7 +57,7 @@ export class LoginService {
   }
 
   isAdmin(): boolean {
-    return localStorage.getItem('role') === 'Admin' ? true : false
+    return sessionStorage.getItem('role') === 'Admin' ? true : false
   }
 
   handleError(error: HttpErrorResponse) {
@@ -71,11 +71,11 @@ export class LoginService {
   private setToken(serverResponse: AuthServerResponse | null) {
     const expDate = new Date(new Date().getTime() + +serverResponse.expires_in * 1000);
     if (serverResponse) {
-      localStorage.setItem('accessToken', serverResponse.access_token);
-      localStorage.setItem('token_type', serverResponse.token_type);
-      localStorage.setItem('expiresIn', expDate.toString());
+      sessionStorage.setItem('accessToken', serverResponse.access_token);
+      sessionStorage.setItem('token_type', serverResponse.token_type);
+      sessionStorage.setItem('expiresIn', expDate.toString());
     } else {
-      localStorage.clear();
+      sessionStorage.clear();
     }
   }
 }

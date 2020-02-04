@@ -1,3 +1,8 @@
-<ul class="list-group list-group-flush" *ngFor = "let user of usersList">
+<div class="card text-left m-3">
+  <ul class="list-group list-group-flush" *ngFor="let user of usersList">
     <li class="list-group-item">{{user.Email}}</li>
   </ul>
+  <div class="card-footer pb-0 pt-3">
+    <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+  </div>
+</div>

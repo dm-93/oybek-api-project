@@ -13,19 +13,26 @@ import { UserModel } from 'src/app/shared/models/user.model';
 export class UsersListComponent implements OnInit {
 
   usersList: Array < UserModel > = [];
+  items = []
 
   constructor(
     private loginService: LoginService,
     private userManagService: UserManagementService,
     private Router: Router
   ) {}
+
   ngOnInit() {
     this.userManagService.getUsers(1).subscribe(
       response => {
         this.usersList = response.Data
-        //console.log(this.usersList);
+        this.items = this.usersList
       }
     );
   }
+
+  onChangePage(pageOfItems: Array<any>) {
+    // update current page of items
+    this.usersList = pageOfItems;
+}
 
 }
