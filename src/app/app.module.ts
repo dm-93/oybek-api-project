@@ -12,6 +12,7 @@ import { TokenInterceptor } from './shared/services/token.interceptor';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
+import { UserComponent } from './components/user/user.component';
 //import { JwPaginationComponent } from 'jw-angular-pagination';
 
 const INTERCEPTOR_PROVIDER: Provider = {
@@ -28,6 +29,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     HomePageComponent,
     RegistrationComponent,
     UsersListComponent,
+    UserComponent,
     //JwPaginationComponent
   ],
   imports: [
