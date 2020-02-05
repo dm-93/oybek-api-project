@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/shared/services/login.service';
 import { Router } from '@angular/router';
 import { UserManagementService } from 'src/app/shared/services/user-management.service';
-import { UsersListModel } from 'src/app/shared/models/users-list.model';
 import { UserModel } from 'src/app/shared/models/user.model';
 
 @Component({
@@ -13,7 +12,9 @@ import { UserModel } from 'src/app/shared/models/user.model';
 export class UsersListComponent implements OnInit {
 
   usersList: Array < UserModel > = [];
-  items = []
+  collectionSize: number;
+  pageNumber: number;
+  currentPage: number;
 
   constructor(
     private loginService: LoginService,
@@ -22,17 +23,22 @@ export class UsersListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userManagService.getUsers(1).subscribe(
+    this.userManagService.getUsers().subscribe(
       response => {
-        this.usersList = response.Data
-        this.items = this.usersList
+        this.collectionSize = response.PageInfo.TotalPages * 30;
+        this.currentPage = response.PageInfo.CurrentPage;
+        this.usersList = response.Data;
       }
     );
   }
 
-  onChangePage(pageOfItems: Array<any>) {
-    // update current page of items
-    this.usersList = pageOfItems;
-}
+  onChangePage() {
+    this.userManagService.getUsers(this.currentPage).subscribe(
+      response => {
+        this.collectionSize = response.PageInfo.TotalPages * 30;
+        this.currentPage = response.PageInfo.CurrentPage;
+        this.usersList = response.Data;
+      })
+  }
 
 }

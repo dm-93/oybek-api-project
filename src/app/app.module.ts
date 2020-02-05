@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Provider } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +12,7 @@ import { TokenInterceptor } from './shared/services/token.interceptor';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
-import { JwPaginationComponent } from 'jw-angular-pagination';
+//import { JwPaginationComponent } from 'jw-angular-pagination';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -27,13 +28,14 @@ const INTERCEPTOR_PROVIDER: Provider = {
     HomePageComponent,
     RegistrationComponent,
     UsersListComponent,
-    JwPaginationComponent
+    //JwPaginationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule    
+    HttpClientModule,
+    NgbPaginationModule    
   ],
   providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
