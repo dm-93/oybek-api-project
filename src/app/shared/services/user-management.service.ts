@@ -18,4 +18,8 @@ export class UserManagementService {
     const url = `http://demo.oybek.com/api/UserManagement?pageNumber=${pageNumber}`;
     return this.http.get<UsersListModel<UserModel>>(url);
   }
+
+  updateUser() {
+    
+  }
 }
