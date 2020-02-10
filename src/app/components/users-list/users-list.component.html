@@ -1,6 +1,7 @@
 <div class="card text-left m-3">
   <ul class="list-group list-group-flush" *ngFor="let user of usersList">
-    <li class="list-group-item"><a [routerLink] = "['/user', user.UserId]" class="list-group-item list-group-item-action">{{user.Email}}</a></li>
+    <li class="list-group-item"><a [routerLink]="['/user']"
+        class="list-group-item list-group-item-action" (click) = 'selectUser(user)'>{{user.Email}}</a></li>
   </ul>
   <ngb-pagination class="d-flex justify-content-center" pageSize='30' [collectionSize]="collectionSize"
     [(page)]="currentPage" (pageChange)="onChangePage()"></ngb-pagination>

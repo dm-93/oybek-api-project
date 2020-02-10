@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(loginModel).subscribe(
       response => {
-        console.log(response);
         this.form.reset(),
         this.router.navigate(['']);
       }

@@ -5,3 +5,7 @@ export interface UserModel {
     Role?: string;
     UserId: number;
   }
+
+  export interface UserExtendedModel extends UserModel {
+    Password: string;
+  }

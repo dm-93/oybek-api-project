@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { LoginService } from 'src/app/shared/services/login.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserManagementService } from 'src/app/shared/services/user-management.service';
-import { UserModel } from 'src/app/shared/models/user.model';
+import { UserModel, UserExtendedModel } from 'src/app/shared/models/user.model';
+
 
 @Component({
   selector: 'app-users-list',
@@ -19,7 +20,8 @@ export class UsersListComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private userManagService: UserManagementService,
-    private Router: Router
+    private router: Router,
+    private activeRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -41,4 +43,8 @@ export class UsersListComponent implements OnInit {
       })
   }
 
+  selectUser(user: UserExtendedModel) {
+    this.userManagService.$selectedUser.next(user);
+    console.log(this.userManagService.$selectedUser.getValue());
+  }
 }
